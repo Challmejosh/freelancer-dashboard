@@ -40,7 +40,7 @@ const Sidebar = () => {
                         animate={{opacity: 1,scale:1}}
                         transition={{duration: 1}}
                         exit={{opacity: 0,scale: 1.1}}
-                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-xs sm:text-md ">
+                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-md ">
                             Overview
                         </motion.p>
                     )}
@@ -58,7 +58,7 @@ const Sidebar = () => {
                         animate={{opacity: 1,scale:1}}
                         transition={{duration: 1}}
                         exit={{opacity: 0,scale: 1.1}}
-                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-xs sm:text-md ">
+                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-md ">
                             Projects
                         </motion.p>
                     )}
@@ -77,7 +77,7 @@ const Sidebar = () => {
                         animate={{opacity: 1,scale:1}}
                         transition={{duration: 1}}
                         exit={{opacity: 0,scale: 1.1}}
-                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-xs sm:text-md ">
+                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-md ">
                             Earning & Expenses
                         </motion.p>
                     )}
