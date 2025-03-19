@@ -1,20 +1,89 @@
 "use client"
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { FaUser } from "react-icons/fa";
 const Sidebar = () => {
-    const [width,setWidth] = useState(100)
-    const maxWidth = 300
-    const minWidth = 100
+    const [nav,setNav] = useState(false)
+    const [width, setWidth] = useState(60); 
+    const [maxWidth, setMaxWidth] = useState(300);
+    const minWidth = 100;
+    useEffect(() => {
+      const updateMaxWidth = () => {
+        if (window.innerWidth < 768) {
+          setMaxWidth(200);
+        } else {
+          setMaxWidth(400);
+        }
+      };
+  
+      updateMaxWidth();
+      window.addEventListener("resize", updateMaxWidth);
+  
+      return () => window.removeEventListener("resize", updateMaxWidth);
+    }, []);
     return ( 
-        <div className="h-screen shrink-0 flex items-start justify-between border "
+        <div className="z-50 shrink-0 bg-gray-700 text-white flex items-start justify-between shadow-inner "
         style={{width}}
-        // animate={{width}}
+        animate={{width}}
         >
-            <div className="flex flex-col">
-                <Link href={"/"}>Overview</Link>
-                <Link href={"/"}>Projects</Link>
-                <Link href={"/"}>Earning & Expenses</Link>
+            <div className="flex my-5 flex-col p-3 gap-5 w-full  ">
+                <Link href={"/"} className="flex items-center justify-start gap-3" >
+                <div className="p-3">
+                <FaUser size={24} />
+
+                </div>
+                <AnimatePresence>
+                    {nav && (
+                        <motion.p
+                        initial={{opacity: 0,scale: 1.1}}
+                        animate={{opacity: 1,scale:1}}
+                        transition={{duration: 1}}
+                        exit={{opacity: 0,scale: 1.1}}
+                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-xs sm:text-md ">
+                            Overview
+                        </motion.p>
+                    )}
+
+                </AnimatePresence>
+                </Link>
+                <Link href={"/project"} className="flex items-center justify-start gap-3">
+                <div className="p-3">
+                <FaUser size={24} />
+                </div>
+                <AnimatePresence>
+                    {nav && (
+                        <motion.p
+                        initial={{opacity: 0,scale: 1.1}}
+                        animate={{opacity: 1,scale:1}}
+                        transition={{duration: 1}}
+                        exit={{opacity: 0,scale: 1.1}}
+                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-xs sm:text-md ">
+                            Projects
+                        </motion.p>
+                    )}
+
+                </AnimatePresence>
+                </Link>
+                <Link href={"/earning"} className="flex items-center justify-start gap-3">
+                <div className="p-3">
+                <FaUser size={24} />
+
+                </div>
+                <AnimatePresence>
+                    {nav && (
+                        <motion.p
+                        initial={{opacity: 0,scale: 1.1}}
+                        animate={{opacity: 1,scale:1}}
+                        transition={{duration: 1}}
+                        exit={{opacity: 0,scale: 1.1}}
+                        className="hover:bg-gray-400 w-full flex p-3 rounded-full text-xs sm:text-md ">
+                            Earning & Expenses
+                        </motion.p>
+                    )}
+
+                </AnimatePresence>
+                </Link>
             </div>
             <motion.div className="w-2 h-full cursor-ew-resize"
              style={{marginLeft: -2,marginRight:-5}}
@@ -24,8 +93,11 @@ const Sidebar = () => {
             onDrag={(event,info)=>{
                 let newWidth = Math.min(Math.max(width + info.delta.x, minWidth), maxWidth);
                 setWidth(newWidth)   
-                console.log(info)
-                console.log(event)
+                if(width > 150){
+                    setNav(true)
+                }else{
+                    setNav(false)
+                }
             }}
             ></motion.div>
         </div>

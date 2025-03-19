@@ -3,6 +3,7 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../Context";
 import { FaTimes } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const CreateProject = () => {
     const {colors,setCreateProjectshow,createProject} = useContext(AppContext)
@@ -17,9 +18,14 @@ const CreateProject = () => {
         setCreateProjectshow(false)
     }
     return ( 
-        <form onSubmit={(e)=>{
+        <motion.form
+        initial={{opacity: 0,scale: 1.1}}
+        animate={{opacity: 1,scale:1}}
+        transition={{duration: 1}}
+        exit={{opacity: 0,scale: 1.1}}
+        onSubmit={(e)=>{
             handleSubmit(e,projectName,clientName,deadline,task,fee)
-        }} action="" className=" bg-white p-3 absolute rounded-lg shadow-lg gap-2 z-10 flex flex-col w-[400px] min-w-fit max-w-[600px] md:w-[400px]">
+        }} action="" className=" bg-white p-3 text-xs sm:text-sm absolute top-10 rounded-lg shadow-lg gap-2 z-50 flex flex-col overflow-auto w-[300px] sm:w-[400px] min-w-fit max-w-[600px] md:w-[400px]">
             <div className="flex w-full justify-end">
                 <FaTimes className="cursor-pointer" onClick={()=>setCreateProjectshow(false)} />
             </div>
@@ -49,10 +55,10 @@ const CreateProject = () => {
                 <input placeholder="enter one amount to be paid" required value={fee} onChange={(e)=>setFee(e.target.value)} type="number" className="flex w-full shadow-inner p-3 px-5 bg-slate-200  rounded-md " id="fee" />
                 </>
             </div>
-            {projectName && clientName&& deadline&&task&&<div className="flex my-3 items-center justify-end">
-                <button className={` ${colors.primary} p-3 px-5 bg-slate-200 text-white rounded-md cursor-pointer `} type="submit">create project</button>
+            {projectName && clientName && deadline  && task && <div className="flex my-3 items-center justify-end">
+                <button className={` ${colors.primary} p-3 px-5 text-white rounded-md cursor-pointer `} type="submit">create project</button>
             </div>}
-        </form>
+        </motion.form>
      );
 }
  
