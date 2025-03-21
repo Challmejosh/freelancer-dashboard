@@ -175,11 +175,26 @@ const Context = ({children}) => {
             }
         }
     }
+
+    // delete project 
+     const delItem = (item,array,set,key)=>{
+    const checkItem = array.find(itm => itm === item)
+        if(checkItem){
+            set(prev=>{
+                const update = prev.filter(ite => ite !== checkItem)
+                localStorage.setItem(key,JSON.stringify(update))
+                console.log(update)
+                return update
+            })
+        }
+     }
+
+
     const totalEarning = completeProject.reduce((acct, item) => acct + item.fee, 0)
     const totalExpenses = completeProject.reduce((acct, item) => acct + item.expenses, 0)
     const netProfit = totalEarning - totalExpenses
     return (
-        <AppContext.Provider value={{ title, totalEarning, totalExpenses, netProfit, pageVariants, archive, addProject, setArchive, addArchive, completeProject, setCompleteProject, complete, completeItem, setComplete, colors, setTitle, createProjectshow, setCreateProjectshow, createProject, activeProject, setActiveProject }}>
+        <AppContext.Provider value={{ title, delItem, totalEarning, totalExpenses, netProfit, pageVariants, archive, addProject, setArchive, addArchive, completeProject, setCompleteProject, complete, completeItem, setComplete, colors, setTitle, createProjectshow, setCreateProjectshow, createProject, activeProject, setActiveProject }}>
             {children}
         </AppContext.Provider>
     );

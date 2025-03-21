@@ -5,7 +5,7 @@ import { FaAngleDown, FaAngleUp, FaComment, FaDownload, FaEllipsisV, FaPlus, FaU
 import { AnimatePresence, motion } from "framer-motion";
 
 const Component = () => {
-    const {setTitle,title,archive,setArchive,addProject,setCreateProjectshow,addArchive,colors,activeProject,setActiveProject,completeProject,setCompleteProject,completeItem} = useContext(AppContext)
+    const {setTitle,title,delItem,archive,setArchive,addProject,setCreateProjectshow,addArchive,colors,activeProject,setActiveProject,completeProject,setCompleteProject,completeItem} = useContext(AppContext)
     const [taskShow,setTaskShow] = useState("")
     const [taskShows,setTaskShows] = useState("")
     const [showCreateTask,setShowCreateTask] = useState(false)
@@ -61,29 +61,31 @@ const Component = () => {
                                         animate={{opacity: 1,scale:1}}
                                         transition={{duration: 1}}
                                         exit={{opacity: 0,scale: 1.1}}
-                                        className="absolute right-3 top-8 bg-white p-2 text-xs rounded-sm z-20  ">
+                                        className="absolute right-3 gap-5 top-8 bg-white p-2 text-xs rounded-sm z-20  ">
+                                            <p onClick={()=>delItem(item,activeProject,setActiveProject,"activeProject")} className="cursor-pointer text-red-600 ">delete project</p>
                                             <p onClick={()=>addArchive(item,activeProject,setActiveProject)} className="cursor-pointer">Archive</p>
                                         </motion.div>}
                                     </AnimatePresence>
                                     <h1 className="font-semibold text-2xl mb-3 ">{item.project}</h1>
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center gap-3 justify-between">
-                                            <p className="">Client:</p>
+                                            <p className="font-semibold">Client:</p>
                                             <p className="">{item.client}</p>
                                         </div>
                                         <div className="flex items-center gap-3 justify-between">
-                                            <p className="">Deadline :</p>
+                                            <p className="font-semibold">Deadline :</p>
                                             <p className="">{item.deadline}</p>
                                         </div>
-                                        <div className="w-full bg-gray-500 h-1 rounded-lg">
-                                            <p className="w-3/4 bg-blue-400 h-full rounded-lg "></p>
+                                        <div className="w-full flex items-center justify-between gap-3  ">
+                                            <p className="font-semibold">Progess</p>
+                                            <p> {item.task.filter(itm => itm.isComplete).length} / {item.task.map(itm =>itm).length}</p>
                                         </div>
                                         <div onClick={()=>{
                                             setTaskShow(index)
                                             setShowCreateTask(false)
                                             setTaskArrow(prev => !prev)
                                         }} className="flex cursor-pointer items-center gap-3 justify-between">
-                                            <p className="">Tasks</p>
+                                            <p className="font-semibold">Tasks</p>
                                             {taskShow === index && taskArrow ? <FaAngleUp className="cursor-pointer" /> : <FaAngleDown className="cursor-pointer" />}
                                         </div>
                                         <>
@@ -145,11 +147,7 @@ const Component = () => {
                                         />
 
                                     </div>
-                                    <div className=" flex items-center justify-between p-2 gap-2 ">
-                                        {/* update Progress */}
-                                        <FaComment />
-                                        <FaUpload />
-                                    </div>
+                                    
                                 </motion.div>
                             </AnimatePresence>
                     )})}

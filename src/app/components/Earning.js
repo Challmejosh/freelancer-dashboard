@@ -14,7 +14,7 @@ const Earning = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="mx-5">
+            className="mx-5 flex flex-col gap-5 ">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 ">
                     <div className="w-full flex p-3 gap-3 px-5 shadow-sm bg-gray-200 h-[150px] items-start justify-start rounded-md ">
                         Earning {totalEarning}
@@ -27,10 +27,11 @@ const Earning = () => {
                         <p className="">{netProfit}</p>
                     </div>
                 </div>
-                <div className="">
-
+                <div className="w-full flex items-center justify-center">
+                <div className=" w-full sm:w-[700px] max-w-4xl  flex items-center justify-center ">
+                    <PieChart />
                 </div>
-                <PieChart />
+                </div>
             </motion.div>
         </AnimatePresence>
      );

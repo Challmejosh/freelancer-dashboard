@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaFolder, FaLayerGroup, FaReceipt} from "react-icons/fa";
 const Sidebar = () => {
     const [nav,setNav] = useState(false)
     const [width, setWidth] = useState(60); 
@@ -30,7 +30,7 @@ const Sidebar = () => {
             <div className="flex my-5 flex-col p-3 gap-5 w-full  ">
                 <Link href={"/"} className="flex items-center justify-start gap-3" >
                 <div className="p-3">
-                <FaUser size={24} />
+                <FaLayerGroup size={24} />
 
                 </div>
                 <AnimatePresence>
@@ -38,7 +38,7 @@ const Sidebar = () => {
                         <motion.p
                         initial={{opacity: 0,scale: 1.1}}
                         animate={{opacity: 1,scale:1}}
-                        transition={{duration: 1}}
+                        transition={{duration: 0.3}}
                         exit={{opacity: 0,scale: 1.1}}
                         className="hover:bg-gray-400 w-full flex p-3 rounded-full text-md ">
                             Overview
@@ -49,14 +49,14 @@ const Sidebar = () => {
                 </Link>
                 <Link href={"/project"} className="flex items-center justify-start gap-3">
                 <div className="p-3">
-                <FaUser size={24} />
+                <FaFolder size={24} />
                 </div>
                 <AnimatePresence>
                     {nav && (
                         <motion.p
                         initial={{opacity: 0,scale: 1.1}}
                         animate={{opacity: 1,scale:1}}
-                        transition={{duration: 1}}
+                        transition={{duration: 0.3}}
                         exit={{opacity: 0,scale: 1.1}}
                         className="hover:bg-gray-400 w-full flex p-3 rounded-full text-md ">
                             Projects
@@ -67,7 +67,7 @@ const Sidebar = () => {
                 </Link>
                 <Link href={"/earning"} className="flex items-center justify-start gap-3">
                 <div className="p-3">
-                <FaUser size={24} />
+                <FaReceipt size={24} />
 
                 </div>
                 <AnimatePresence>
@@ -75,7 +75,7 @@ const Sidebar = () => {
                         <motion.p
                         initial={{opacity: 0,scale: 1.1}}
                         animate={{opacity: 1,scale:1}}
-                        transition={{duration: 1}}
+                        transition={{duration: 0.3}}
                         exit={{opacity: 0,scale: 1.1}}
                         className="hover:bg-gray-400 w-full flex p-3 rounded-full text-md ">
                             Earning & Expenses
