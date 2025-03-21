@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 const Component = () => {
     const {setTitle,title,archive,setArchive,addProject,setCreateProjectshow,addArchive,colors,activeProject,setActiveProject,completeProject,setCompleteProject,completeItem} = useContext(AppContext)
     const [taskShow,setTaskShow] = useState("")
+    const [taskShows,setTaskShows] = useState("")
     const [showCreateTask,setShowCreateTask] = useState(false)
     const [taskArrow,setTaskArrow] = useState(false)
     const [taskArrowComp,setTaskArrowComp] = useState(false)
@@ -179,7 +180,7 @@ const Component = () => {
                                                 <div className="flex flex-col gap-2">
                                                     <div className="flex items-center gap-3 justify-between">
                                                         <p className="font-semibold">Completion Date :</p>
-                                                        <p className="">Name</p>
+                                                        <p className="">{item.completion}</p>
                                                     </div>
                                                     <div className="flex items-centergap-3 justify-between">
                                                         <p className="font-semibold">Client Name :</p>
@@ -192,20 +193,31 @@ const Component = () => {
                                                     <div className="flex flex-col ">
                                                         <div className="flex items-center gap-3 justify-between">
                                                             <p className="font-semibold flex items-center justify-start ">Completed Task</p>
-                                                            {taskArrowComp ? <FaAngleUp onClick={()=>setTaskArrowComp(prev => !prev)} className="cursor-pointer" /> : <FaAngleDown onClick={()=>setTaskArrowComp(prev => !prev)} className="cursor-pointer" />}
+                                                            {taskArrowComp && taskShows === index ? <FaAngleUp onClick={()=>{
+                                                            setTaskShows(index)
+                                                            setShowCreateTask(false)
+                                                            setTaskArrowComp(prev => !prev)
+                                                            }} className="cursor-pointer" /> : <FaAngleDown onClick={()=>{
+                                                            setTaskShows(index)
+                                                            setShowCreateTask(false)
+                                                            setTaskArrowComp(prev => !prev)
+                                                            }} className="cursor-pointer" />}
                                                         </div>
-                                                        {taskArrowComp&&<>
-                                                        {item.task.map((task,inx)=>(
-                                                            <div className="" key={inx}>{task.taskInput}</div>
-                                                        ))}
-                                                        </>
-                                                        }
+                                                        <AnimatePresence>
+                                                            {taskArrowComp && taskShows === index &&<motion.div 
+                                                            initial={{opacity: 0,scale: 1.1,originX: 0}}
+                                                            animate={{opacity: 1,scale:1,originX:0}}
+                                                            transition={{duration: 1}}
+                                                            exit={{opacity: 0,scale: 1.1,originX: 0}}>
+                                                            {item.task.map((task,inx)=>(
+                                                                <div className="" key={inx}>{task.taskInput} hello</div>
+                                                            ))}
+                                                            </motion.div>
+                                                            }
+                                                        </AnimatePresence>
                                                     </div>
-                                                    <div className="flex items-center justify-between">
-                                                        <p className="">⭐⭐⭐⭐⭐</p>
-                                                    </div>
-                                                    <div onClick={()=>addProject(item,completeProject,"setCompleteProject")} className="">
-                                                        Reopen Project
+                                                    <div onClick={()=>addProject(item,completeProject,"setCompleteProject")} className=" flex items-center justify-start w-full  ">
+                                                        <span className=" bg-blue-600 py-3 px-5 rounded-md text-white cursor-pointer ">Reopen Project</span>
                                                     </div>
                                                 </div>
                                             </motion.div> 
@@ -267,22 +279,37 @@ const Component = () => {
                                             <div className="flex flex-col ">
                                                 <div className="flex items-center gap-3 justify-between">
                                                     <p className="font-semibold flex items-center justify-start ">Completed Task</p>
-                                                    {taskArrowComp ? <FaAngleUp onClick={()=>setTaskArrowComp(prev => !prev)} className="cursor-pointer" /> : <FaAngleDown onClick={()=>setTaskArrowComp(prev => !prev)} className="cursor-pointer" />}
+                                                    {taskArrowComp && taskShows === index ? <FaAngleUp onClick={()=>{
+                                                            setTaskShows(index)
+                                                            setShowCreateTask(false)
+                                                            setTaskArrowComp(prev => !prev)
+                                                    }} className="cursor-pointer" /> : <FaAngleDown onClick={()=>{
+                                                        setTaskShows(index)
+                                                        setShowCreateTask(false)
+                                                        setTaskArrowComp(prev => !prev)
+                                                    }} className="cursor-pointer" />}
                                                 </div>
-                                                {taskArrowComp&&<>
-                                                {item.task.map((task,inx)=>(
-                                                    <div className="" key={inx}>{task.taskInput}</div>
-                                                ))}
-                                                </>
-                                                }
+                                                <AnimatePresence>
+                                                    {taskArrowComp && taskShows === index &&<motion.div
+                                                    initial={{opacity: 0,scale: 1.1,originX: 0}}
+                                                    animate={{opacity: 1,scale:1,originX:0}}
+                                                    transition={{duration: 1}}
+                                                    exit={{opacity: 0,scale: 1.1,originX: 0}}
+                                                    >
+                                                    {item.task.map((task,inx)=>(
+                                                        <div className="" key={inx}>{task.taskInput}</div>
+                                                    ))}
+                                                    </motion.div>
+                                                    }
+                                                </AnimatePresence>
                                             </div>
                                             <div className="flex items-center gap-3 justify-between">
                                             <p className="font-semibold">Payment</p>
                                             <p className="font-semibold">{item.fee}</p>
                                             </div>
                                         </div>
-                                        <div onClick={()=>addProject(item,archive,"\]setArchive")} className="">
-                                            Reopen Project
+                                        <div onClick={()=>addProject(item,archive,"setArchive")} className=" flex items-center justify-start w-full  ">
+                                            <span className=" bg-blue-600 py-3 px-5 rounded-md text-white cursor-pointer ">Reopen Project</span>
                                         </div>
                                     </motion.div>
                                 </AnimatePresence>

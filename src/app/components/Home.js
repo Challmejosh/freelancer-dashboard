@@ -3,6 +3,7 @@
 import { useContext } from "react";
 import { AppContext } from "./Context";
 import { AnimatePresence,motion } from "framer-motion";
+import Chart from "./chart";
 
 const HomePage = () => {
     const {activeProject,pageVariants,completeProject,archive} = useContext(AppContext)
@@ -31,6 +32,7 @@ const HomePage = () => {
                         <p className="">{archiveProject}</p>
                     </div>
                 </div>
+            <Chart complete={complete} active={active} archive={archive} />
             </motion.div>
         </AnimatePresence>
      );

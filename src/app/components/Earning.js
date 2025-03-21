@@ -2,12 +2,11 @@
 import { useContext } from "react";
 import { AppContext } from "./Context";
 import { AnimatePresence, motion } from "framer-motion";
+import PieChart from "./PieChart";
 
 const Earning = () => {
-    const {completeProject,pageVariants} = useContext(AppContext)
-    const totalEarning = completeProject.reduce((acct,item)=> acct + item.fee,0)
-    const totalExpenses = completeProject.reduce((acct,item)=> acct + item.expenses,0)
-    const netProfit = totalEarning-totalExpenses
+    const {completeProject,pageVariants,totalEarning,totalExpenses,netProfit} = useContext(AppContext)
+
     return ( 
         <AnimatePresence mode="wait">
             <motion.div
@@ -31,6 +30,7 @@ const Earning = () => {
                 <div className="">
 
                 </div>
+                <PieChart />
             </motion.div>
         </AnimatePresence>
      );
